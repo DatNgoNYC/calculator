@@ -5,11 +5,11 @@ class FourFunctionCalculator {
     #operator;
     #operand_2;
 
-    constructor() {
-        this.#propertyInFocus = "operand_1";
-        this.#operand_1 = "";
-        this.#operator = null;
-        this.#operand_2 = null;
+    constructor(propertyInFocus = 'operand_1', operand_1 = '', operator = null, operand_2 = null) {
+        this.#propertyInFocus = propertyInFocus;
+        this.#operand_1 = operand_1;
+        this.#operator = operator;
+        this.#operand_2 = operand_2;
     }
 
     // make an input
@@ -21,11 +21,11 @@ class FourFunctionCalculator {
                 break;
 
             case "decimal":
-                this.#executeDecimal;
+                this.#executeDecimal();
                 break;
 
             case "pos_neg":
-                this.#executePos_Neg;
+                this.#executePos_Neg();
                 break;
 
             case "operator":
@@ -33,27 +33,39 @@ class FourFunctionCalculator {
                 break;
 
             case "CE_AC":
-                this.#executeCE_AC;
+                this.#executeCE_AC();
                 break;
 
             case "enter":
-                this.#executeEnter;
+                this.#executeEnter();
                 break;
 
             default:
                 return /* this.operand_2 === null ? this.#operand_1 : this.#operand_2 */;
         }
+    }
 
-        console.log("operand_1 : " + this.#operand_1);
-        console.log("operator  : " + this.#operator);
-        console.log("operand_2 : " + this.#operand_2);
+    get propertyInFocus() {
+        return this.#propertyInFocus;
+    }
+
+    get operand_1() {
+        return this.#operand_1;
+    }
+
+    get operator() {
+        return this.#operator;
+    }
+
+    get operand_2() {
+        return this.#operand_2;
     }
 
     /* ----------------------- PRIVATE METHODS ---------------------- */
 
     #executeNumeric(numericInput) {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 this.#operand_1 += numericInput;
                 break;
@@ -71,7 +83,7 @@ class FourFunctionCalculator {
 
     #executeDecimal() {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 if (this.#operand_1.includes(".")) {
                     // do nothing
@@ -97,7 +109,7 @@ class FourFunctionCalculator {
 
     #executePos_Neg() {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 if (this.#operand_1.includes("-")) {
                     this.#operand_1.replace("-", "");
@@ -121,13 +133,14 @@ class FourFunctionCalculator {
 
     #executeOperator(operatorInput) {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 if (this.#operand_1 === "" || this.#operand_1 === "-") {
                     // do nothing
                 } else {
                     this.#operator = operatorInput;
                     this.#operand_2 = "";
+                    this.#propertyInFocus = "operand_2";
                 }
                 break;
             case "operator":
@@ -163,7 +176,7 @@ class FourFunctionCalculator {
 
     #executeEnter() {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 break;
             case "operator":
@@ -176,15 +189,17 @@ class FourFunctionCalculator {
                     // do nothing.
                 } else {
                     this.#executeOperator(this.#operator);
+                    this.#propertyInFocus = 'operator';
                 }
         }
     }
 
     #executeCE_AC() {
         // mutate calculator based on property in focus
-        switch (this.#getPropertyInFocus) {
+        switch (this.#propertyInFocus) {
             case "operand_1":
                 if (this.#operand_1 === "") {
+                    return;
                 } else {
                     this.#operand_1 = "";
                 }
@@ -206,11 +221,6 @@ class FourFunctionCalculator {
                 }
                 break;
         }
-    }
-
-    /* get the operand property that is in focus */
-    get #getPropertyInFocus() {
-        return this.#operand_2 !== null ? "operand_2" : this.#operator !== null ? "operator" : "operand_1";
     }
 
     #getInputType(input) {
@@ -237,5 +247,4 @@ class FourFunctionCalculator {
     }
 }
 
-const fourFunctionCalculator = new FourFunctionCalculator();
-fourFunctionCalculator.makeInput("1");
+export {FourFunctionCalculator};
