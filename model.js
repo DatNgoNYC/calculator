@@ -5,7 +5,7 @@ class FourFunctionCalculator {
     #operator;
     #operand_2;
 
-    constructor(propertyInFocus = 'operand_1', operand_1 = '', operator = null, operand_2 = null) {
+    constructor(propertyInFocus = "operand_1", operand_1 = "", operator = null, operand_2 = null) {
         this.#propertyInFocus = propertyInFocus;
         this.#operand_1 = operand_1;
         this.#operator = operator;
@@ -71,6 +71,7 @@ class FourFunctionCalculator {
                 break;
             case "operator":
                 // when operator is in focus, reset to default state and record numeric input. the operator gets focused when operand_2 was in focus and enter pressed.
+                this.#propertyInFocus = 'operand_1';
                 this.#operand_1 = numericInput;
                 this.#operator = null;
                 this.#operand_2 = null;
@@ -93,7 +94,8 @@ class FourFunctionCalculator {
                 break;
             case "operator":
                 // when operator is in focus, reset to default state and record decimal input. the operator gets focused when operand_2 was in focus and enter pressed.
-                this.operand_1 = '.';
+                this.#propertyInFocus = 'operand_1';
+                this.#operand_1 = ".";
                 this.#operator = null;
                 this.#operand_2 = null;
                 break;
@@ -112,18 +114,22 @@ class FourFunctionCalculator {
         switch (this.#propertyInFocus) {
             case "operand_1":
                 if (this.#operand_1.includes("-")) {
-                    this.#operand_1.replace("-", "");
+                    this.#operand_1 = this.#operand_1.replace("-", "");
                 } else {
                     this.#operand_1 = "-" + this.#operand_1;
                 }
                 break;
             case "operator":
                 // when operator is in focus, add/remove negative to operand_1. the operator gets focused when operand_2 was in focus and "enter" is inputted.
-                this.#operand_1 = "-" + this.#operand_1;
+                if (this.#operand_1.includes("-")) {
+                    this.#operand_1 = this.#operand_1.replace("-", "");
+                } else {
+                    this.#operand_1 = "-" + this.#operand_1;
+                }
                 break;
             case "operand_2":
                 if (this.#operand_2.includes("-")) {
-                    this.#operand_2.replace("-", "");
+                    this.#operand_2 = this.#operand_2.replace("-", "");
                 } else {
                     this.#operand_2 = "-" + this.#operand_2;
                 }
@@ -189,7 +195,7 @@ class FourFunctionCalculator {
                     // do nothing.
                 } else {
                     this.#executeOperator(this.#operator);
-                    this.#propertyInFocus = 'operator';
+                    this.#propertyInFocus = "operator";
                 }
         }
     }
@@ -227,7 +233,7 @@ class FourFunctionCalculator {
         const numeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
         const operator = ["add", "subtract", "multiply", "divide"];
         const CE_AC = "CE_AC";
-        const decimal = "decimal";
+        const decimal = ".";
         const pos_neg = "pos_neg";
         const enter = "enter";
 
@@ -247,4 +253,4 @@ class FourFunctionCalculator {
     }
 }
 
-export {FourFunctionCalculator};
+module.exports = FourFunctionCalculator;
