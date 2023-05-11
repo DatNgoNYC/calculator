@@ -39,10 +39,11 @@ class FourFunctionCalculator {
             case "enter":
                 this.#executeEnter();
                 break;
-
-            default:
-                return /* this.operand_2 === null ? this.#operand_1 : this.#operand_2 */;
         }
+        console.log('propertyInFocus :' + this.#propertyInFocus);
+        console.log('operand_1       :' + this.#operand_1);
+        console.log('operator        :' + this.#operator);
+        console.log('operand_2       :' + this.#operand_2);
     }
 
     get propertyInFocus() {
@@ -71,7 +72,7 @@ class FourFunctionCalculator {
                 break;
             case "operator":
                 // when operator is in focus, reset to default state and record numeric input. the operator gets focused when operand_2 was in focus and enter pressed.
-                this.#propertyInFocus = 'operand_1';
+                this.#propertyInFocus = "operand_1";
                 this.#operand_1 = numericInput;
                 this.#operator = null;
                 this.#operand_2 = null;
@@ -88,20 +89,24 @@ class FourFunctionCalculator {
             case "operand_1":
                 if (this.#operand_1.includes(".")) {
                     // do nothing
+                } else if (this.#operand_1 === "") {
+                    this.#operand_1 += "0.";
                 } else {
                     this.#operand_1 += ".";
                 }
                 break;
             case "operator":
                 // when operator is in focus, reset to default state and record decimal input. the operator gets focused when operand_2 was in focus and enter pressed.
-                this.#propertyInFocus = 'operand_1';
-                this.#operand_1 = ".";
+                this.#propertyInFocus = "operand_1";
+                this.#operand_1 = "0.";
                 this.#operator = null;
                 this.#operand_2 = null;
                 break;
             case "operand_2":
                 if (this.#operand_2.includes(".")) {
                     // do nothing
+                } else if (this.#operand_1 === "") {
+                    this.#operand_2 += "0.";
                 } else {
                     this.#operand_2 += ".";
                 }
@@ -113,7 +118,9 @@ class FourFunctionCalculator {
         // mutate calculator based on property in focus
         switch (this.#propertyInFocus) {
             case "operand_1":
-                if (this.#operand_1.includes("-")) {
+                if (this.#operand_1 === "") {
+                    this.#operand_1 = "-0";
+                } else if (this.#operand_1.includes("-")) {
                     this.#operand_1 = this.#operand_1.replace("-", "");
                 } else {
                     this.#operand_1 = "-" + this.#operand_1;
@@ -128,7 +135,9 @@ class FourFunctionCalculator {
                 }
                 break;
             case "operand_2":
-                if (this.#operand_2.includes("-")) {
+                if (this.#operand_1 === "") {
+                    this.#operand_1 = "-0";
+                } else if (this.#operand_2.includes("-")) {
                     this.#operand_2 = this.#operand_2.replace("-", "");
                 } else {
                     this.#operand_2 = "-" + this.#operand_2;
@@ -141,7 +150,7 @@ class FourFunctionCalculator {
         // mutate calculator based on property in focus
         switch (this.#propertyInFocus) {
             case "operand_1":
-                if (this.#operand_1 === "" || this.#operand_1 === "-") {
+                if (this.#operand_1 === "") {
                     // do nothing
                 } else {
                     this.#operator = operatorInput;
@@ -150,29 +159,29 @@ class FourFunctionCalculator {
                 }
                 break;
             case "operator":
-                // when operator is in focus, reset to default state and record decimal input. the operator gets focused when operand_2 was in focus and enter pressed.
+                // when operator is in focus, you should be able to change the operator property
                 this.#operator = operatorInput;
-                this.#operand_2 = "";
+                this.#propertyInFocus = "operand_2";
                 break;
             case "operand_2":
-                if (this.#operand_2 === "" || this.#operand_2 === "-") {
+                if (this.#operand_1 === "") {
                     // if there is no input in operand_2 yet you can still change the operator but operand_2 is technically still in focus
                     this.#operator = operatorInput;
                 } else {
                     if (this.#operator === "add") {
-                        this.#operand_1 = Number(this.#operand_1) + Number(this.#operand_2);
+                        this.#operand_1 = (Number(this.#operand_1) + Number(this.#operand_2)).toString();
                         this.#operator = operatorInput;
                         this.#propertyInFocus = "operand_2";
                     } else if (this.#operator === "subtract") {
-                        this.#operand_1 = Number(this.#operand_1) - Number(this.#operand_2);
+                        this.#operand_1 = (Number(this.#operand_1) - Number(this.#operand_2)).toString();
                         this.#operator = operatorInput;
                         this.#propertyInFocus = "operand_2";
                     } else if (this.#operator === "multiply") {
-                        this.#operand_1 = Number(this.#operand_1) * Number(this.#operand_2);
+                        this.#operand_1 = (Number(this.#operand_1) * Number(this.#operand_2)).toString();
                         this.#operator = operatorInput;
                         this.#propertyInFocus = "operand_2";
                     } else if (this.#operator === "divide") {
-                        this.#operand_1 = Number(this.#operand_1) / Number(this.#operand_2);
+                        this.#operand_1 = (Number(this.#operand_1) / Number(this.#operand_2)).toString();
                         this.#operator = operatorInput;
                         this.#propertyInFocus = "operand_2";
                     }
@@ -187,11 +196,12 @@ class FourFunctionCalculator {
                 break;
             case "operator":
                 // when operator is in focus, repeat the operator and operand_2 operation on operand_1. the operator gets focused when operand_2 was in focus and "enter" is inputted.
-                this.#propertyInFocus = "operand_2";
+                this.#propertyInFocus = 'operand_2'
                 this.#executeOperator(this.#operator);
+                this.#propertyInFocus = 'operator'
                 break;
             case "operand_2":
-                if (this.#operand_2 === "" || this.#operand_2 === "-") {
+                if (this.#operand_2 === "") {
                     // do nothing.
                 } else {
                     this.#executeOperator(this.#operator);
@@ -212,15 +222,15 @@ class FourFunctionCalculator {
                 break;
             case "operator":
                 this.#operand_1 = "";
-                this.#operator = "";
-                this.#operand_2 = "";
+                this.#operator = null;
+                this.#operand_2 = null;
                 this.#propertyInFocus = "operand_1";
                 break;
             case "operand_2":
                 if (this.#operand_2 === "") {
                     this.#operand_1 = "";
-                    this.#operator = "";
-                    this.#operand_2 = "";
+                    this.#operator = null;
+                    this.#operand_2 = null;
                     this.#propertyInFocus = "operand_1";
                 } else {
                     this.#operand_2 = "";

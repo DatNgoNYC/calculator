@@ -6,7 +6,7 @@ describe("propertyInFocus: operand_1", () => {
             const calculator = new FourFunctionCalculator("operand_1", "", null, null);
             calculator.makeInput("pos_neg");
             expect(calculator.propertyInFocus).toEqual("operand_1");
-            expect(calculator.operand_1).toEqual("-");
+            expect(calculator.operand_1).toEqual("-0");
             expect(calculator.operator).toEqual(null);
             expect(calculator.operand_2).toEqual(null);
         });
