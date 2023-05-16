@@ -9,7 +9,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -21,14 +21,10 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 
-div {
-    border: 1px black solid;
-}
-
 body {
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* Background */
@@ -42,20 +38,51 @@ body {
 .background-container div {
     flex: 1;
     min-height: 120px;
+
+    font-family: "METROPOLIS PERSONAL USE";
+    font-size: max(10vh, 74px);
+    white-space: nowrap;
+
+    color: white;
+    background-color: black;
+    border: 1px white solid;
+    border-width: 1px 0 1px 0;
+
+    /* Center the text inside this div */
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.background-container div:first-child {
+    border-top-width: 0; 
+}
+
+.background-container div:last-child {
+    border-bottom-width: 0; 
+}
+
+.background-container div span {
+    /* centers the text in the box */
+    padding-top: .8%;
 }
 
 /* Calculator Container */
 #calculator-container {
+    box-sizing: content-box;
+    /* Positioning the calculator on page */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
     
+    /* Dimensions of the calculator */
     height: 70vh;
     width: 44vh;
 
-    background-color: gray;
+    background-color: black;
+    border: 20px black solid;
 
     display: flex;
     flex-direction: column;
@@ -63,10 +90,12 @@ body {
 
 /* display and controls containers */
 #display{
+    background-color: grey;
     flex: 15; /* 15vh */
 }
 
 #controls-container {
+    background-color: grey;
     flex: 55; /* 55vh */
 
     display: flex;
