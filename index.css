@@ -1,23 +1,11 @@
 /* Style Reset */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
     box-sizing: border-box;
 }
 
@@ -55,66 +43,138 @@ body {
 }
 
 .background-container div:first-child {
-    border-top-width: 0; 
+    border-top-width: 0;
 }
 
 .background-container div:last-child {
-    border-bottom-width: 0; 
+    border-bottom-width: 0;
 }
 
 .background-container div span {
     /* centers the text in the box */
-    padding-top: .8%;
+    padding-top: 0.8%;
 }
 
 /* Calculator Container */
 #calculator-container {
-    box-sizing: content-box;
     /* Positioning the calculator on page */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    
+
     /* Dimensions of the calculator */
     height: 70vh;
     width: 44vh;
+    box-sizing: content-box;
 
-    background-color: black;
+    /* styling*/
     border: 20px black solid;
+    background-color: white;
+    font-family: "Didot";
+    font-size: 3vh;
 
+    /* flex controls for descendent flex items */
     display: flex;
     flex-direction: column;
 }
 
 /* display and controls containers */
-#display{
-    background-color: grey;
+#display {
+    background-clip: content-box;
+    box-sizing: border-box;
+    background-color: black;
     flex: 15; /* 15vh */
+    padding: 3vh 2vh 3vh 2vh;
+    color: white;
+
+    /* styling */
+    font-size: 6vh;
+    text-align: right;
+    letter-spacing: 1vh;
+
+    /* flex controls for the span in the display; flex to center the text */
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+#display div {
+    padding: 0 1vh 0 1vh;
+}
+
+
 #controls-container {
-    background-color: grey;
+    background-color: white;
     flex: 55; /* 55vh */
 
+    /* creates padding around the edges of the controls container */
+    padding: 0 3vh 3vh 3vh;
+
+    /* flex controls for the rows themselves */
     display: flex;
     flex-direction: column;
+    gap: 3vh;
 }
 
 /* controls buttons and rows*/
 .controls-row {
+    /* each row has the same height */
     flex: 1;
 
+    /* flex controls for the buttons inside the rows */
     display: flex;
+    gap: 3vh;
 }
 
 .controls-button {
+    /* each button has the same width */
     flex: 1;
 
-    text-align: center;
+    border: #000 1px solid;
 }
 
-#decimal {
-    color: black;
+/* CSS */
+.controls-button {
+    /* the thin background border */
+    box-shadow: #fff 4px 4px 0 0, #000 4px 4px 0 1px;
+
+    /* changes the button color to black */
+    background-color: #000;
+
+    /* changes border to the black square */
+    border: 1px solid #000;
+
+    /* changes text color to white */
+    color: white;
+
+    /* adds padding to button */
+    /* padding: 12px 15px; */
+
+    /* border-radius: 4px; */
+}
+
+.controls-button:focus {
+    text-decoration: none;
+}
+
+.controls-button:hover {
+    text-decoration: none;
+}
+
+.controls-button:active {
+    box-shadow: rgba(0, 0, 0, 0.125) 0 3px 5px inset;
+    outline: 0;
+}
+
+.controls-button:not([disabled]):active {
+    box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
+    transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+    #7 {
+        padding: 12px 50px;
+    }
 }
