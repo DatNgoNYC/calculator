@@ -10,6 +10,15 @@ describe("propertyInFocus: operand_1", () => {
             expect(calculator.operator).toEqual(null);
             expect(calculator.operand_2).toEqual(null);
         });
+
+        it("do nothing", () => {
+            const calculator = new FourFunctionCalculator("operand_1", "", null, null);
+            calculator.makeInput(null);
+            expect(calculator.propertyInFocus).toEqual("operand_1");
+            expect(calculator.operand_1).toEqual("");
+            expect(calculator.operator).toEqual(null);
+            expect(calculator.operand_2).toEqual(null);
+        });
     });
 
     describe("with input", () => {

@@ -70,7 +70,7 @@ body {
     box-sizing: content-box;
 
     /* styling*/
-    border: 20px black solid;
+    border: 10px rgb(17, 17, 17) solid;
     background-color: white;
     font-family: "Didot";
     font-size: 3vh;

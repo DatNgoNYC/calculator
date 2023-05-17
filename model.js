@@ -40,10 +40,12 @@ class FourFunctionCalculator {
                 this.#executeEnter();
                 break;
         }
-        console.log('propertyInFocus :' + this.#propertyInFocus);
-        console.log('operand_1       :' + this.#operand_1);
-        console.log('operator        :' + this.#operator);
-        console.log('operand_2       :' + this.#operand_2);
+        console.log('input              : ' + input)
+        console.log('propertyInFocus    : ' + this.#propertyInFocus);
+        console.log('operand_1          : ' + this.#operand_1);
+        console.log('operator           : ' + this.#operator);
+        console.log('operand_2          : ' + this.#operand_2);
+        console.log('');
     }
 
     get propertyInFocus() {
@@ -78,6 +80,7 @@ class FourFunctionCalculator {
                 this.#operand_2 = null;
                 break;
             case "operand_2":
+                
                 this.#operand_2 += numericInput;
                 break;
         }
@@ -162,6 +165,7 @@ class FourFunctionCalculator {
                 // when operator is in focus, you should be able to change the operator property
                 this.#operator = operatorInput;
                 this.#propertyInFocus = "operand_2";
+                this.#operand_2 = '';
                 break;
             case "operand_2":
                 if (this.#operand_1 === "") {
@@ -263,4 +267,4 @@ class FourFunctionCalculator {
     }
 }
 
-module.exports = FourFunctionCalculator;
+// module.exports = FourFunctionCalculator;
