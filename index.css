@@ -28,7 +28,7 @@ body {
     min-height: 120px;
 
     font-family: "METROPOLIS PERSONAL USE";
-    font-size: max(10vh, 74px);
+    font-size: max(8vh);
     white-space: nowrap;
 
     color: white;
@@ -37,9 +37,10 @@ body {
     border-width: 1px 0 1px 0;
 
     /* Center the text inside this div */
-    display: inline-flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .background-container div:first-child {
@@ -53,6 +54,43 @@ body {
 .background-container div span {
     /* centers the text in the box */
     padding-top: 0.8%;
+}
+
+.background-container div {
+    flex-wrap: nowrap;
+}
+
+.background-container div span {
+    padding-top: 50;
+}
+
+.background-container div .span-1 {
+    animation: scrolling-text 30s linear infinite;
+}
+
+.background-container div .span-2 {
+    animation: scrolling-text 36s linear infinite;
+}
+
+.background-container div .span-3 {
+    animation: scrolling-text 28s linear infinite;
+}
+
+.background-container div .span-4 {
+    animation: scrolling-text 31s linear infinite;
+}
+
+.background-container div .span-5 {
+    animation: scrolling-text 34s linear infinite;
+}
+
+@keyframes scrolling-text {
+    0% {
+        transform: translate(50%, 0);
+    }
+    100% {
+        transform: translate(-50%, 0);
+    }
 }
 
 /* Calculator Container */
@@ -103,7 +141,6 @@ body {
 #display div {
     padding: 0 1vh 0 1vh;
 }
-
 
 #controls-container {
     background-color: white;
